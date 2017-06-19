@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Crée Flyer</h1>
+    <div class="panel-group acc-v1 col-md-3" id="accordion-1">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-One">
+                        Bloc de texte
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse-One" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        <ul class="list-unstyled">
+                            <li> <i class="icon-pencil"></i> Texte </li>
+                            <li> <i class="icon-credit-card"></i> Cartouches de coordonnées conseiller </li>
+                            <li> <i class="icon-credit-card"></i> Cartouches de coordonnées agence </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-Two">
+                        Bloc image
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse-Two" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <ul class="list-unstyled">
+                            <li> <i class="icon-link"></i> URL </li>
+                            <li> <i class="icon-folder"></i> Importer image </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-3">
+                        Modéles
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse-3" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <ul class="list-unstyled">
+                            <li> <i class="icon-share-alt"></i> Mes modéles </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div contenteditable="true">
+        Ce texte peut être édité par l'utilisateur.
+    </div>
+    <div class="panel-group acc-v1 col-md-9" id="accordion-1">
+        <canvas id="mon_canvas" width="500" height="500" style="border:1px solid black;">
+            Message pour les navigateurs ne supportant pas encore canvas.
+        </canvas>
+        <script type="text/javascript">
+            window.onload = function()
+            {
+                var canvas = document.getElementById('mon_canvas');
+                if(!canvas)
+                {
+                    alert("Impossible de récupérer le canvas");
+                    return;
+                }
+
+                var context = canvas.getContext('2d');
+                if(!context)
+                {
+                    alert("Impossible de récupérer le context du canvas");
+                    return;
+                }
+                var imageData = ctx.createImageData(100,100);
+                var mapPixel = imageData.data; // Récupération du tableau de pixels
+
+// On va rendre tout ça tout bleu avec une opacité de 50%
+                for(var i=0 ; i < mapPixel.length ;i+=4){
+                    mapPixel[i+2] = 200; // Bleu
+                    mapPixel[i+3] = 128; // Alpha
+                }
+// On injecte les données au point 50,50
+                ctx.putImageData( imageData , 50 , 50 );
+            }
+        </script>
+    </div>
+
+{% endblock %}
