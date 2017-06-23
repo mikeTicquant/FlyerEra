@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>Espace Modèle</h1>
+    <div class="table-responsive">
+        <table class="table table-bordered table-condensed table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Nom du modèle</th>
+                <th>Date de création</th>
+                <th>En partage</th>
+                <th>Format</th>
+                <th>Recto/Verso</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+
+    {% for modele in modeles %}
+                <tr>
+                    <td>{{ modele.id }}</td>
+                    <td>{{ modele.name }}</td>
+                    <td>{{ "ahaha" }}</td>
+                    <td>{{ modele.partage }}</td>
+                    <td>{{ modele.format }}</td>
+                    <td>{{ "dd" }}</td>
+
+
+                </tr>
+    {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

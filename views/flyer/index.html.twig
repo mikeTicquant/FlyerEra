@@ -1,0 +1,174 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container content profile">
+        <div class="row">
+            <!--Left Sidebar-->
+
+            <div class="col-md-3 md-margin-bottom-40">
+                <img class="img-responsive profile-img margin-bottom-20" src="{{ asset('assets/img/user/user_photo_default.jpg') }}" alt="">
+
+                <ul class="list-group sidebar-nav-v1 margin-bottom-40" id="sidebar-nav-1">
+                    <li class="list-group-item">
+                        <a href=""><i class="fa fa-bar-chart-o"></i> Tableau de bord</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href=""><i class="fa fa-user"></i> Profil</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href=""><i class="fa fa-group"></i> Agence</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href=""><i class="fa fa-cubes"></i> Réseau</a>
+                    </li>
+                    <li class="list-group-item active">
+                        <a href=""><i class="fa fa-cog"></i> Settings</a>
+                    </li>
+                </ul>
+
+            </div>
+            <!--End Left Sidebar-->
+
+            <!-- Profile Content -->
+            <div class="col-md-9">
+                <div class="profile-body margin-bottom-20">
+                    <div class="tab-v1">
+                        <ul class="nav nav-justified nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#profile">Flyers</a></li>
+                            <li><a data-toggle="tab" href="#passwordTab">Modèles</a></li>
+                            <li><a data-toggle="tab" href="#payment">Paiement</a></li>
+                            <li><a data-toggle="tab" href="#settings">Abonnements</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="profile" class="profile-edit tab-pane fade in active">
+                                <h2 class="heading-md">Mes coordonnées :</h2>
+
+                                <br>
+
+
+                                <button type="submit" class="btn-u" href="{{ path('app_flyer_flyer_creer') }}">Créer un flyer </button>
+                                <button type="submit" class="btn-u">Mes flyers</button>
+                                <button type="submit" class="btn-u">Valider les modifications</button>
+
+
+                            </div>
+
+                            <div id="passwordTab" class="profile-edit tab-pane fade">
+                                <h1>Espace Modèle</h1>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-condensed table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Nom du modèle</th>
+                                            <th>Date de création</th>
+                                            <th>En partage</th>
+                                            <th>Format</th>
+                                            <th>Recto/Verso</th>
+
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        {% for modele in modeles %}
+                                            <tr>
+                                                <td>{{ modele.id }}</td>
+                                                <td>{{ modele.name }}</td>
+                                                <td>{{ "2017-19-20" }}</td>
+                                                <td>{{ modele.partage }}</td>
+                                                <td>{{ modele.format }}</td>
+                                                <td>{{ "Verso" }}</td>
+
+
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div id="payment" class="profile-edit tab-pane fade">
+                                <h2 class="heading-md">Gérer votre paramétre de sécurité de Paiement</h2>
+                                <p>Options de mon compte.</p>
+                                <br>
+                                <form class="sky-form" id="sky-form" action="#">
+                                    <!--Checkout-Form-->
+                                    <section>
+                                        <div class="inline-group">
+                                            <label class="radio"><input type="radio" checked="" name="radio-inline"><i class="rounded-x"></i>Visa</label>
+                                            <label class="radio"><input type="radio" name="radio-inline"><i class="rounded-x"></i>MasterCard</label>
+                                            <label class="radio"><input type="radio" name="radio-inline"><i class="rounded-x"></i>PayPal</label>
+                                        </div>
+                                    </section>
+
+                                    <section>
+
+                                        <label class="input">
+                                            <input type="text" name="name" placeholder="Name on card">
+                                        </label>
+                                    </section>
+
+                                    <div class="row">
+                                        <section class="col col-10">
+                                            <label class="input">
+                                                <input type="text" name="card" id="card" placeholder="Card number">
+                                            </label>
+                                        </section>
+                                        <section class="col col-2">
+                                            <label class="input">
+                                                <input type="text" name="cvv" id="cvv" placeholder="CVV2">
+                                            </label>
+                                        </section>
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="label col col-4">Expiration date</label>
+                                        <section class="col col-5">
+                                            <label class="select">
+                                                <select name="month">
+                                                    <option disabled="" selected="" value="0">Month</option>
+                                                    <option value="1">January</option>
+                                                    <option value="1">February</option>
+                                                    <option value="3">March</option>
+                                                    <option value="4">April</option>
+                                                    <option value="5">May</option>
+                                                    <option value="6">June</option>
+                                                    <option value="7">July</option>
+                                                    <option value="8">August</option>
+                                                    <option value="9">September</option>
+                                                    <option value="10">October</option>
+                                                    <option value="11">November</option>
+                                                    <option value="12">December</option>
+                                                </select>
+                                                <i></i>
+                                            </label>
+                                        </section>
+                                        <section class="col col-3">
+                                            <label class="input">
+                                                <input type="text" placeholder="Year" id="year" name="year">
+                                            </label>
+                                        </section>
+                                    </div>
+                                    <button type="button" class="btn-u btn-u-default">Cancel</button>
+                                    <button class="btn-u" type="submit">Save Changes</button>
+                                    <!--End Checkout-Form-->
+                                </form>
+                            </div>
+
+                            <div id="settings" class="profile-edit tab-pane fade">
+                                <h2 class="heading-md">Gerer vos abonnements.</h2>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Profile Content -->
+        </div><!--/end row-->
+    </div>
+
+
+{% endblock %}
+

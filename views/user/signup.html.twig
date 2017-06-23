@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{%  block body %}
+    {{ form_start(userform,{attr:{novalidate:'novalidate'}}) }}
+    {{ form_widget(userform) }}
+    <button class="btn btn-success btn-block" type="submit">
+        Envoyer
+    </button>
+    {{ form_end(userform) }}
+{% endblock %}

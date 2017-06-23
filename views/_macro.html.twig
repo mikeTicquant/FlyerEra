@@ -1,0 +1,12 @@
+{% macro nav_li_a(route, name, icon, currentRoute) %}
+
+    <li class="{{ (currentRoute is not empty and route == currentRoute) ? 'active' }}">
+        <a href="{{ path(route) }}">
+            {% if icon is defined and icon is not empty %}
+                <span class="fa fa-fw fa-{{ icon }}"></span>
+            {% endif %}
+            {{ name }}
+        </a>
+    </li>
+
+{% endmacro %}

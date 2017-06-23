@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="reg-header">
+            <h2>Ajouter un flyer </h2>
+
+        </div>
+
+        {{ form_start(form,{attr:{novalidate:'novalidate'}}) }}
+        {{ form_widget(form) }}
+
+        <div class="row">
+
+            <div class="col-lg-6 text-right">
+                <button class="btn-u" type="submit">Valider</button>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,257 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <script type="text/javascript" src="angular.min.js"></script>
+    <script type="text/javascript">
+
+        var DBModule = angular.module('DBModule', []);
+        DBModule.factory('Tables', function () {
+            return {
+                tables: [],
+                addTable: function (tname) {
+                    this.tables.push({
+                        name: tname,
+                        fields: [],
+                        data: []
+                    });
+                },
+                delTable: function (i) {
+                    this.tables.splice(i, 1);
+                },
+                addField: function (tableId, fieldName) {
+                    this.tables[tableId].fields.push(fieldName);
+                },
+                delField: function (tableId, i) {
+                    this.tables[tableId].fields.splice(i, 1);
+                },
+            };
+        });
+
+        DBModule.controller('MainController', function ($scope, Tables) {
+
+            Tables.addTable('Users');
+            Tables.addField(0, 'login');
+            Tables.addField(0, 'password');
+
+            $scope.filtreData = [];
+            $scope.pSize = 10;
+            $scope.page = 0;
+            $scope.Tables = Tables;
+            $scope.edit = 0;
+            $scope.copy = function (obj) {
+                console.log("hello");
+                console.log(obj);
+                var nObj = {};
+                for (var i in obj)
+                    nObj[i] = obj[i];
+                return nObj;
+            };
+        });
+
+        DBModule.filter('valueFilter', function () {
+            return function (data, expressionFiltre, $scope) {
+                if (!expressionFiltre)
+                    return data;
+                var newArray = [];
+                for (var i = 0; i < data.length; i++) {
+                    if ($scope.$eval(expressionFiltre, data[i]))
+                        newArray.push(data[i]);
+                }
+                return newArray;
+            };
+        });
+
+    </script>
+    <style>
+        #cree2 {
+            border: 2px solid red;
+            background: #ff9a3c;
+            color: white;
+            width: 250px;
+            height: 25px;
+        }
+    </style>
+    <h1>Créer Flyer</h1>
+    <div class="panel-group acc-v1 col-lg-3" id="accordion-1">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-One">
+                        Format
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse-One" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="row">
+                        Portrait
+                        <ul class="list-unstyled">
+                            <input id="taille1" type="button" value="A3" onClick="A3();">
+                            <input id="taille2" type="button" value="A4" onClick="A4();">
+                            <input id="taille3" type="button" value="A5" onClick="A5();">
+                        </ul>
+                        Paysage
+                        <ul class="list-unstyled">
+                            <input id="taille1" type="button" value="A3" onClick="A3Paysage();">
+                            <input id="taille2" type="button" value="A4" onClick="A4Paysage();">
+                            <input id="taille3" type="button" value="A5" onClick="A5Paysage();">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-2">
+                        Bloc de texte
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse-2" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row tblList">
+                        <ul class="list-unstyled">
+                            <li><i class="icon-pencil"></i><input type="button" value="Text" ng-click="Tables.addTable(tableName); tableName = '';"/></li>
+                            <li><i class="icon-credit-card"></i> Cartouches de coordonnées conseiller</li>
+                            <li><i class="icon-credit-card"></i> Cartouches de coordonnées agence</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-Two">
+                        Bloc image
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse-Two" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <ul class="list-unstyled">
+                            <li><i class="icon-link"></i> URL</li>
+                            <li><i class="icon-folder"></i> Importer image</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href="#collapse-3">
+                        Modéles
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse-3" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="row">
+                        <ul class="list-unstyled">
+                            <li><i class="icon-share-alt"></i> Mes modéles</li>
+                        </ul>
+
+                        {% for modele in modeles %}
+                            <table class="table table-bordered table-condensed table-hover">
+                                <tr>
+                                    <td>{{ modele.name }}</td>
+                                    <td>{{ "2017-19-20" }}</td>
+                                    <td>{{ modele.format }}</td>
+                                    <td>{{ "Verso" }}</td>
+                                </tr>
+                            </table>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        #map {
+            border: 2px solid red;
+            background: blue;
+            color: white;
+            width: 450px;
+            height: 25px;
+        }
+
+        #cree {
+            border: 2px solid red;
+            background: #ff9a3c;
+            color: white;
+            width: 596px;
+            height: 842px;
+        }
+    </style>
+    <script type="text/javascript">
+        var bougeX;
+        var bougeY;
+        function bouger(evenement, id) {
+            document.onmousemove = function (e) {
+                bouger(e, id);
+            };
+            bougeX = evenement.pageX;
+            bougeY = evenement.pageY;
+            document.getElementById(id).style.marginLeft = bougeX - 10 + "px";
+            document.getElementById(id).style.marginTop = bougeY - 10 + "px";
+        }
+
+        function stop_bouge(evenement, id) {
+            document.onmousemove = null;
+            bougeX = evenement.pageX;
+            bougeY = evenement.pageY;
+            document.getElementById(id).style.marginLeft = bougeX - 10 + "px";
+            document.getElementById(id).style.marginTop = bougeY - 10 + "px";
+        }
+
+    </script>
+    <script type="text/javascript">
+        function A3() {
+            var obj = document.getElementById('ladiv');
+            obj.style.height = "1191px";
+            obj.style.width = "842px";
+        }
+        function A4() {
+            var obj = document.getElementById('ladiv');
+            obj.style.height = "842px";
+            obj.style.width = "596px";
+        }
+        function A5() {
+            var obj = document.getElementById('ladiv');
+            obj.style.height = "596px";
+            obj.style.width = "421px";
+        }
+        function A3Paysage() {
+            var obj = document.getElementById('ladiv');
+            obj.style.height = "842px";
+            obj.style.width = "1191px";
+        }
+        function A4Paysage() {
+            var obj = document.getElementById('ladiv');
+            obj.style.height = "596px";
+            obj.style.width = "842px";
+        }
+        function A5Paysage() {
+            var obj = document.getElementById('ladiv');
+            obj.style.height = "421px";
+            obj.style.width = "596px";
+        }
+    </script>
+
+    <div id="ladiv" style="width:596px; height:842px; background-color:lightsteelblue" class="col-lg-9"
+         onload="initialize()" id="cree" ng-show="edit >= 0">
+        <!--<div id="map" onmousedown="bouger(event,'map');" onmouseup="stop_bouge(event,'map');">
+            <br/>
+        </div>-->
+        <div id="cree2" ng-repeat="t in Tables.tables track by $index">
+            Text .....
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% import '_macro.html.twig' as prospec_macros %}
+
+{% set currentRoute = app.request.attributes.get('_route') %}
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav" aria-expanded="false">
+                <span class="sr-only">Afficher/Cacher la navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated slideInLeft" href="{{ path('homepage') }}">
+                PROSPEC
+            </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="nav">
+
+            <ul class="nav navbar-nav">
+
+                {{ prospec_macros.nav_li_a('homepage', 'Contact', null, currentRoute) }}
+
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+                    {% if is_granted('ROLE_NEGOCIATEUR') %}
+
+                        <li><p class="navbar-text">Bonjour {{ app.user.username }} !</p></li>
+                        {{ prospec_macros.nav_li_a('app_user_user_profil', 'Mon profil','user',currentRoute) }}
+                        {{ prospec_macros.nav_li_a('app_user_user_index', 'Tableau de bord','key',currentRoute) }}
+                        {{ prospec_macros.nav_li_a('app_user_user_profil', 'Actions','user-plus') }}
+
+                    {% elseif is_granted('ROLE_USER') %}
+
+                        <li>Bonjour {{ app.user.firstname }} !</li>
+                        {{ prospec_macros.nav_li_a('homepage', 'Mon compte', null, currentRoute) }}
+                        {{ prospec_macros.nav_li_a('homepage', 'Mes favoris', null, currentRoute) }}
+
+                    {% endif %}
+
+                    {{ prospec_macros.nav_li_a('logout', 'Déconnexion', null, currentRoute) }}
+
+                {% else %}
+
+                    {{ prospec_macros.nav_li_a('app_user_user_signup', 'Inscription', 'user-plus', currentRoute) }}
+                    {{ prospec_macros.nav_li_a('login', 'Mon compte', 'user', currentRoute) }}
+                    {{ prospec_macros.nav_li_a('homepage', 'Administration', 'key', currentRoute) }}
+
+                {% endif %}
+            </ul>
+
+        </div>
+    </div>
+</nav>

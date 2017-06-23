@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container content profile">
+        <div class="row">
+
+
+            <!-- Profile Content -->
+            <div class="col-md-12">
+                <div class="profile-body margin-bottom-20">
+                    <div class="tab-v1">
+                        <ul class="nav nav-justified nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#profile">Premier RDV</a></li>
+                            <li><a data-toggle="tab" href="#passwordTab">Estimatoin</a></li>
+                            <li><a data-toggle="tab" href="#payment">Estimation rendue</a></li>
+                            <li><a data-toggle="tab" href="#settings">Notifications</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="profile" class="profile-edit tab-pane fade in active">
+                                <h2 class="heading-md"></h2>
+
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+
+                                <button type="submit" class="btn-u">Valider les modifications</button>
+                                <button type="button" class="btn-u btn-u-default">Annuler</button>
+
+                            </div>
+
+                            <div id="passwordTab" class="profile-edit tab-pane fade">
+                                <h2 class="heading-md"></h2>
+                                <p></p>
+                                <br>
+
+                            </div>
+
+                            <div id="payment" class="profile-edit tab-pane fade">
+                                <h2 class="heading-md"></h2>
+                                <p></p>
+                                <br>
+
+                            </div>
+
+                            <div id="settings" class="profile-edit tab-pane fade">
+                                <h2 class="heading-md"></h2>
+                                <p></p>
+                                <br>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Profile Content -->
+        </div><!--/end row-->
+    </div>
+
+
+{% endblock %}
+
+
